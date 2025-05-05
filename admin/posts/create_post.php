@@ -19,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $main_image_size = $_FILES['main_image']['size'];
     $main_image_error = $_FILES['main_image']['error'];
 
-    if(empty($title)){
+    if (empty($title)) {
         $errors[] = "Title is required";
     }
- 
-    if(empty($description)){
+
+    if (empty($description)) {
         $errors[] = "Description is required";
     }
 
-    if(empty($content)){
+    if (empty($content)) {
         $errors[] = "Content is required";
     }
 
@@ -88,6 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php $baseurlpath = "../";
 include "../admincomponents/header.php"; ?>
 <?php include "../admincomponents/navbar.php"; ?>
+
+<style>
+    /* Target the actual editable area inside CKEditor */
+    .ck-editor__editable_inline {
+        min-height: 300px;
+        /* optional: control height */
+    }
+</style>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
 <section class="container">
@@ -130,20 +138,20 @@ include "../admincomponents/header.php"; ?>
         </select>
         <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="date" name="published_date" required>
         <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="file" name="main_image" accept="image/*" required>
-        <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="description" placeholder="Short Description" required></textarea>
+        <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0; min-height: 250px;" name="description" placeholder="Short Description" required></textarea>
         <textarea id="editor" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="content" placeholder="Main Content"></textarea>
         <button style="background-color: #2e384d; border: 0;" class="btn px-3 py-2 rounded-0 btn-primary " type="submit">Create Post</button>
 </section>
 
 <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 <?php include "../admincomponents/footer.php"; ?>

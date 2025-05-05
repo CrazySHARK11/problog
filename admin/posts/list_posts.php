@@ -10,11 +10,29 @@ if (!isset($_SESSION['admin_id'])) {
 
 // Fetch all posts with their respective category names and authors
 try {
-    $stmt = $pdo->query("SELECT posts.id, posts.title, posts.is_top_post, posts.is_popular, posts.published_date, categories.name AS category_name, categories.background_color AS category_bg, authors.name AS author_name 
+    $query = "SELECT posts.id, posts.title, posts.is_top_post, posts.is_popular, posts.published_date, categories.name AS category_name, categories.background_color AS category_bg, authors.name AS author_name 
                          FROM posts 
                          JOIN categories ON posts.category_id = categories.id
                          JOIN authors ON posts.author_id = authors.id
-                         ORDER BY posts.published_date DESC");
+                         WHERE 1 " ;
+
+$params = [];
+
+    if (!empty($_GET['keywords'])) {
+        $query .= " AND (posts.title LIKE :keyword OR posts.description LIKE :keyword)";
+        $params[':keyword'] = '%' . $_GET['keywords'] . '%';
+    }
+
+
+    if (!empty($_GET['category_id'])) {
+        $query .= " AND posts.category_id = :category_id";
+        $params[':category_id'] = $_GET['category_id'];
+    }
+
+    $query .= " ORDER BY posts.published_date DESC";  
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute($params);
     $posts = $stmt->fetchAll();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,7 +75,7 @@ include "../admincomponents/header.php"; ?>
 
 <section class="container">
 
-    <div class="header d-flex align-items-center justify-content-between mb-5">
+    <div class="header d-flex align-items-center justify-content-between ">
         <div class="left">
             <h1 class="my-3 fw-bold" style="color: #2e384d;">All Your Posts</h1>
             <p class="fs-5" style="color: #7c7c7c;">Create, Edit and Delete your posts</p>
@@ -69,7 +87,27 @@ include "../admincomponents/header.php"; ?>
         </div>
     </div>
 
+    <form action="" method="get" class=" my-5 d-flex gap-3 justify-content-between align-items-center">
+        <div class="d-flex gap-3">
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="keywords" placeholder="Search By Keywords" >
 
+            <select class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="category_id" >
+                <option value="">Select Category</option>
+                <?php
+                $sql = "SELECT * FROM categories";
+                $stmt = $pdo->query($sql);
+                while ($category = $stmt->fetch()) {
+                    echo "<option value='{$category['id']}'>{$category['name']}</option>";
+                }
+                ?>
+            </select>
+        </div>
+
+        <div>
+            <button href="../" type="submit" style="background-color: #2e384d; border: 0;" class="btn px-5 py-2 rounded-0 btn-primary "> Search </button>
+        </div>
+
+    </form>
 
     <table class="table overflow-x-scroll">
         <thead>

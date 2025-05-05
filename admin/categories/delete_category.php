@@ -21,7 +21,7 @@
         ':id' => $category_id
     ]);
   }catch(PDOException $e){
-    die("Deleting failed");
+    die("Deleting failed" . $e->getMessage());
   }
 
   header("Location: categories.php");
