@@ -74,6 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $pagetitle = "Register";
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = "Register to join our community and gain access to exclusive content. Sign up now to start your journey with us."; 
+$metaauthor = "Lovenish";
+$ogtitle = "Register - All Blogs";
+$ogdesc = "Register now to unlock a world of knowledge and inspiration. Join our community and start your journey today!";
+$ogimage = " ";
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/register.php";
+include './components/publicheader.php' ; ?>
+
+
 <?php include './components/navbar.php' ?>
 
 <div style="display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 4em 0;">

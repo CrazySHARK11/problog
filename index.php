@@ -97,6 +97,18 @@ try{
 $pagetitle = "Home";
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = "Problog is a blog website that covers a wide range of topics, including technology, lifestyle, travel, and more. Our goal is to provide readers with informative and engaging content that inspires and educates. Join us on our journey to explore the world through our blogs."; 
+$metaauthor = "Lovenish";
+$ogtitle = "Problog - All Blogs";
+$ogdesc = "At problog, we believe in the power of storytelling. Our blogs are crafted with care and passion, providing readers with a unique perspective on various topics. Whether you're looking for travel tips, tech reviews, or lifestyle advice, we've got you covered.";
+$ogimage = "./uploads/" . htmlspecialchars($top_post['main_image']);
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/";
+include './components/publicheader.php' ; ?>
+
+
 <?php include './components/navbar.php' ?>
  
 <!-- BANNER -->

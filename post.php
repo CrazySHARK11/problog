@@ -91,6 +91,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
 $pagetitle = $post['title'];
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = htmlspecialchars($post['description']);   ; 
+$metaauthor = "Lovenish";
+$ogtitle =  $post['title'] . "- All Blogs" ;
+$ogdesc =  htmlspecialchars($post['description']); ;
+$ogimage = './uploads/' . htmlspecialchars($post['main_image']);
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/post.php?id=" . $post_id;
+include './components/publicheader.php' ; ?>
+
+
 <?php include './components/navbar.php' ?>
 <div class="container" style="max-width: 1280px; margin-top: 2rem; ">
 
@@ -237,5 +249,20 @@ include './components/header.php' ?>
 
   </div>
 </div>
+
+<script type="application/ld+json"> 
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "<?php echo htmlspecialchars($post['title']); ?>",
+  "image": "<?php echo './uploads/' . htmlspecialchars($post['main_image']); ?>",
+  "author": {
+    "@type": "Person",
+    "name": "<?php echo htmlspecialchars($post['author_name']); ?>"
+  },
+  "datePublished": "<?php echo date("Y-m-d", strtotime($post['published_date'])); ?>",
+  "articleBody": "<?php echo htmlspecialchars($post['content']); ?>"
+}
+</script>
 
 <?php include './components/footer.php' ?>

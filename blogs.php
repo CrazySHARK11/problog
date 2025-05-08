@@ -66,6 +66,17 @@ try {
 $pagetitle = "All Blogs";
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = "Here you can find all the blogs. Search and filter them by category to find the content that interests you the most."; 
+$metaauthor = "Lovenish";
+$ogtitle = "Blogs - All Blogs";
+$ogdesc = "Discover the author behind this blog and learn about the purpose and vision of our content. Join us on this journey of knowledge and inspiration.";
+$ogimage = " ";
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/blogs.php";
+include './components/publicheader.php' ; ?>
+
 <?php include './components/navbar.php' ?>
 
 <!-- Search header -->

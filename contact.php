@@ -35,6 +35,18 @@ try {
 $pagetitle = "Register";
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = "Contact us for any queries or feedback. We value your input and are here to assist you."; 
+$metaauthor = "Lovenish";
+$ogtitle = "Contact Us - ProBlog";
+$ogdesc = "Contact us for any queries or feedback. We value your input and are here to assist you.";
+$ogimage = "";
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/contact.php";
+include './components/publicheader.php' ; ?>
+
+
 <?php include './components/navbar.php' ?>
 
 <div style="display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 4em 0;">

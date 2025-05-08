@@ -44,6 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pagetitle = "Login";
 $basePath =  './';
 include './components/header.php' ?>
+
+<?php 
+$metadescription = "Login to your account to access exclusive content and features. Join our community of passionate bloggers and readers."; 
+$metaauthor = "Lovenish";
+$ogtitle = "Login - ProBlog";
+$ogdesc = "Login to your account to access exclusive content and features. Join our community of passionate bloggers and readers.";
+$ogimage = " ";
+$ogtype = "website";
+$ogurl = "https://problog.lovenishlabs.com/login.php";
+include './components/publicheader.php' ; ?>
+
+
 <?php include './components/navbar.php' ?>
 
 <div style="display: flex; align-items: center; justify-content: center; min-height: 80vh; ">
