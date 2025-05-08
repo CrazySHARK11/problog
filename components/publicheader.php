@@ -3,7 +3,7 @@
 
   <meta property="og:title" content="<?php echo $ogtitle ?>">
   <meta property="og:description" content="<?php echo $ogdesc ?>">
-  <meta property="og:image" content="<?php echo $ogimage  ?>">
+  <meta property="og:image" content="https://problog.lovenishlabs.com/uploads/<?php echo $ogimage  ?>">
   <meta property="og:url" content="<?php echo $ogurl ?>">
   <meta property="og:type" content="<?php echo $ogtype ?>">
   
