@@ -249,7 +249,7 @@ include './components/publicheader.php' ; ?>
   "@context": "https://schema.org",
   "@type": "Website",
   "name": "Problog",
-  "url": "https://problog.lovenishlabs.com",
+  "url": "https://problog.lovenishlabs.com"
 }
 </script>
 

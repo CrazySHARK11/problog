@@ -1,0 +1,13 @@
+User-agent: *
+
+Disallow: /admin/
+Disallow: /user/
+Disallow: /uploads/
+Disallow: /public/
+Disallow: /config/
+Disallow: /components/ 
+Disallow: /assets/
+
+Allow: /
+
+Sitemap: https://problog.lovenishlabs.com/sitemap.xml.php
