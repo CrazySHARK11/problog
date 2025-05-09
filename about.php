@@ -47,9 +47,9 @@ include './components/publicheader.php' ; ?>
 
     <!-- About the Author Section -->
     <div style="text-align: center; padding: 2rem 0; border-bottom: 1px solid #e1e1e1;">
-      <figure class="position-relative">
-        <img class="img-thumbnail object-fit-contain" src="./uploads/<?php echo htmlspecialchars($author['profile_picture']) ?>" alt="Author Image" width="350" style=" box-shadow: 0 0 0 10px #607f61;  border-radius: 50%; margin-bottom: 1rem;">
-      </figure>
+      <div class="position-relative">
+        <img loading="lazy" class="object-fit-cover" src="./uploads/<?php echo htmlspecialchars($author['profile_picture']) ?>" alt="Author Image" width="300"  height="300" style=" box-shadow: 0 0 0 10px #607f61;  border-radius: 50%; margin-bottom: 1rem;">
+      </div>
       <h2 style="font-size: 2rem; color: #2e384d; font-weight: 700;"><?php echo htmlspecialchars($author['name']) ?></h2>
       <p class="fs-6" style="color: #7c7c7c;"><?php echo htmlspecialchars($author['titles']) ?></p>
       <div class="d-flex gap-3 justify-content-center my-5 align-items-center">

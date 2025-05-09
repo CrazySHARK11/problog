@@ -153,7 +153,7 @@ include './components/publicheader.php' ; ?>
 
     <?php foreach ($posts as $post): ?>
       <div class="blogcard d-flex flex-lg-row flex-column gap-4 align-items-center ">
-        <img src="<?php echo './uploads/' . htmlspecialchars($post['main_image']) ?>" width="270" height="280" class="rounded object-fit-cover float-start" alt="">
+        <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['main_image']) ?>" width="270" height="280" class="rounded object-fit-cover float-start" alt="">
         <div class="card-content d-flex flex-column gap-2 justify-content-center justify-content-lg-start align-items-center align-items-lg-start">
           <span class="badge d-inline" style="color: #2e384d; background-color: #ccfcce;"><?php echo htmlspecialchars($post['category_name']) ?></span>
           <h2 class="m-0 text-center line-clamp-two text-lg-start" style="color: #2e384d;"><?php echo htmlspecialchars($post['title']) ?></h2>
@@ -199,7 +199,7 @@ include './components/publicheader.php' ; ?>
         <h2 class="mb-4 fw-bold">Popular Posts</h2>
         <?php foreach($popularPosts as $popularPost): ?>
           <div class="side-popular-card d-flex gap-3 mt-3">
-            <img src="./uploads/<?php echo htmlspecialchars($popularPost['main_image']) ?>" width="70" height="70" class="rounded object-fit-cover float-start" alt="" alt="">
+            <img loading="lazy" src="./uploads/<?php echo htmlspecialchars($popularPost['main_image']) ?>" width="70" height="70" class="rounded object-fit-cover float-start" alt="" alt="">
             <a href="post.php?id=<?php echo htmlspecialchars($popularPost['id']) ?>" class="fs-6 line-clamp-two text-decoration-none text-dark fw-medium" style="color: color-mix(in srgb, #2e384d 90%, #fff 50%);"><?php echo htmlspecialchars($popularPost['title']) ?></a>
           </div>  
         <?php endforeach; ?>
@@ -218,7 +218,7 @@ include './components/publicheader.php' ; ?>
   <div class="row gap-5 justify-content-center" style="margin: 4em 0 0 0;">
     <?php foreach($testimonials as $testimonial): ?>   
       <div class="testimonialcard shadow-sm col-12 col-lg-3 py-4 px-4 mt-5 rounded d-flex flex-column gap-3 position-relative" style="background-color:#f9f9f9;">
-        <img src="./uploads/<?php echo htmlspecialchars($testimonial['profilepic']) ?>" width="60" height="60" class="rounded-circle position-absolute object-fit-cover float-start" style="top: -2em;" alt="Donald Trump">
+        <img loading="lazy" src="./uploads/<?php echo htmlspecialchars($testimonial['profilepic']) ?>" width="60" height="60" class="rounded-circle position-absolute object-fit-cover float-start" style="top: -2em;" alt="Donald Trump">
         <p class="mb-0 line-clamp-four" style="color: #7c7c7c; margin-top: 2em;"><?php echo htmlspecialchars($testimonial['content']) ?></p>
         <p class="reviewername fw-bold m-0" style="color:#2E572F "><?php echo htmlspecialchars($testimonial['name']) ?></p>
         <span style="color: #7c7c7c;"><?php echo htmlspecialchars($testimonial['position']) ?></span>

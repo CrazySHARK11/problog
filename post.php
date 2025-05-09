@@ -140,7 +140,7 @@ include './components/publicheader.php' ; ?>
       <div class="sticky-md-top px-3" style="top: 20px; border-left: 1px solid #e1e1e1;">
         <h3 style="color: #2e384d;" class="fw-light mb-4">author</h3>
         <div class="d-flex align-items-center gap-3">
-          <img src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="70" height="70" class="object-fit-cover rounded-circle" alt="author's image">
+          <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="70" height="70" class="object-fit-cover rounded-circle" alt="author's image">
           <div class="auther-details d-flex flex-column">
             <p class="fs-4 m-0 fw-medium"><?php echo htmlspecialchars($post['author_name']); ?></p>
             <p class="fs-6 m-0" style="color: #7c7c7c;">
@@ -172,7 +172,7 @@ include './components/publicheader.php' ; ?>
     <h4 style="font-size: 1.5rem; color: #2e384d; font-weight: 600;">About the Author</h4>
 
     <div class="d-flex align-items-center gap-3">
-      <img src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="65" height="65" class=" my-4 object-fit-cover rounded-circle" alt="author's image">
+      <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="65" height="65" class=" my-4 object-fit-cover rounded-circle" alt="author's image">
       <div class="auther-details d-flex flex-column">
         <p class="fs-4 m-0 fw-medium"><?php echo htmlspecialchars($post['author_name']); ?></p>
         <p class="fs-6 m-0" style="color: #7c7c7c;">
@@ -229,7 +229,7 @@ include './components/publicheader.php' ; ?>
     <?php foreach ($comments as $comment): ?>
       <div class="comment d-flex mb-4">
         <div class="d-flex gap-3">
-          <img width="50" height="50" class="object-fit-cover rounded-circle"
+          <img loading="lazy" width="50" height="50" class="object-fit-cover rounded-circle"
             src="./uploads/<?php echo htmlspecialchars($comment['profile_picture']); ?>" alt="">
 
         </div>
