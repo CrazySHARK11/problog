@@ -1,4 +1,4 @@
-  <link rel="canonical" href="https://problog.lovenishlabs.com" />
+  <link rel="canonical" href="https://problog.lovenishlabs.com/" />
   <meta name="description" content="<?php echo $metadescription; ?>" />
 
   <meta property="og:title" content="<?php echo $ogtitle ?>">

@@ -250,19 +250,33 @@ include './components/publicheader.php' ; ?>
   </div>
 </div>
 
-<script type="application/ld+json"> 
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "<?php echo htmlspecialchars($post['title']); ?>",
-  "image": "<?php echo './uploads/' . htmlspecialchars($post['main_image']); ?>",
-  "author": {
-    "@type": "Person",
-    "name": "<?php echo htmlspecialchars($post['author_name']); ?>"
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://problog.lovenishlabs.com/post.php?id=<?php echo $post_id; ?>"
   },
-  "datePublished": "<?php echo date("Y-m-d", strtotime($post['published_date'])); ?>",
-  "articleBody": "<?php echo htmlspecialchars($post['content']); ?>"
+  "headline": "<?php echo htmlspecialchars($post['title']); ?>",
+  "description": "<?php echo htmlspecialchars($post['description']); ?>",
+  "image": "https://problog.lovenishlabs.com/uploads/<?php echo htmlspecialchars($post['main_image']) ?>",  
+    "author": {
+    "@type": "Person",
+    "name": "<?php echo htmlspecialchars($post['author_name']) ?>",
+    "url": "https://problog.lovenishlabs.com/about.php"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lovenish Labs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://problog.lovenishlabs.com/images/logo.png"
+    }
+  },
+   "datePublished": "<?php echo date(DATE_ATOM, strtotime($post['published_at'])) ?>"
 }
 </script>
+
 
 <?php include './components/footer.php' ?>

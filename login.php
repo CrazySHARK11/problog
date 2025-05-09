@@ -50,7 +50,7 @@ $metadescription = "Login to your account to access exclusive content and featur
 $metaauthor = "Lovenish";
 $ogtitle = "Login - ProBlog";
 $ogdesc = "Login to your account to access exclusive content and features. Join our community of passionate bloggers and readers.";
-$ogimage = " ";
+$ogimage = "public/logo.svg";
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/login.php";
 include './components/publicheader.php' ; ?>

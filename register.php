@@ -80,7 +80,7 @@ $metadescription = "Register to join our community and gain access to exclusive 
 $metaauthor = "Lovenish";
 $ogtitle = "Register - All Blogs";
 $ogdesc = "Register now to unlock a world of knowledge and inspiration. Join our community and start your journey today!";
-$ogimage = " ";
+$ogimage = "public/logo.svg";
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/register.php";
 include './components/publicheader.php' ; ?>

@@ -72,7 +72,7 @@ $metadescription = "Here you can find all the blogs. Search and filter them by c
 $metaauthor = "Lovenish";
 $ogtitle = "Blogs - All Blogs";
 $ogdesc = "Discover the author behind this blog and learn about the purpose and vision of our content. Join us on this journey of knowledge and inspiration.";
-$ogimage = " ";
+$ogimage = "public/logo.svg";
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/blogs.php";
 include './components/publicheader.php' ; ?>
@@ -142,6 +142,7 @@ include './components/publicheader.php' ; ?>
       </div>
     <?php endforeach; ?>
   <?php endif; ?>
-
 </section>
+
+ 
 <?php include './components/footer.php' ?>

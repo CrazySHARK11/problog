@@ -103,7 +103,7 @@ $metadescription = "Problog is a blog website that covers a wide range of topics
 $metaauthor = "Lovenish";
 $ogtitle = "Problog - All Blogs";
 $ogdesc = "At problog, we believe in the power of storytelling. Our blogs are crafted with care and passion, providing readers with a unique perspective on various topics. Whether you're looking for travel tips, tech reviews, or lifestyle advice, we've got you covered.";
-$ogimage = "./uploads/" . htmlspecialchars($top_post['main_image']);
+$ogimage = htmlspecialchars($top_post['main_image']);
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/";
 include './components/publicheader.php' ; ?>
@@ -243,5 +243,14 @@ include './components/publicheader.php' ; ?>
   </div>
 </section>
 <!-- Subscribe Today -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Website",
+  "name": "Problog",
+  "url": "https://problog.lovenishlabs.com",
+}
+</script>
 
 <?php include './components/footer.php' ?>

@@ -38,7 +38,7 @@ $metadescription = "Learn more about the author and the purpose of this blog. Di
 $metaauthor = "Lovenish";
 $ogtitle = "About Us - Author and Blog Purpose";
 $ogdesc = "Discover the author behind this blog and learn about the purpose and vision of our content. Join us on this journey of knowledge and inspiration.";
-$ogimage = "https://problog.lovenishlabs.com/uploads/" . htmlspecialchars($author['profile_picture']);
+$ogimage = htmlspecialchars($author['profile_picture']);
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/about.php";
 include './components/publicheader.php' ; ?>
@@ -81,5 +81,23 @@ include './components/publicheader.php' ; ?>
 </div>
 
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Lovenish",
+    "url": "https://problog.lovenishlabs.com/about.php",
+    "description": "Founder of Lovenish Labs, author of tech and development blog articles.",
+    "image": "https://problog.lovenishlabs.com/images/lovenish.jpg",
+    "sameAs": [
+      "https://twitter.com/yourhandle",
+      "https://www.linkedin.com/in/yourprofile"
+    ]
+  }
+}
+</script>
 
 <?php include './components/footer.php' ?>

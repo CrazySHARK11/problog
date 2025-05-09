@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# --- Redirect www to non-www ---
+RewriteCond %{HTTP_HOST} ^www\.problog\.lovenishlabs\.com [NC]
+RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
+
+# --- Redirect HTTP to HTTPS ---
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
+
+# --- Optional: Add trailing slash for directories (not files) ---
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
+
+# --- Enable HSTS (force HTTPS in future visits) ---
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+</IfModule>

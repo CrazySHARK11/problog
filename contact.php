@@ -41,7 +41,7 @@ $metadescription = "Contact us for any queries or feedback. We value your input 
 $metaauthor = "Lovenish";
 $ogtitle = "Contact Us - ProBlog";
 $ogdesc = "Contact us for any queries or feedback. We value your input and are here to assist you.";
-$ogimage = "";
+$ogimage = "public/logo.svg";
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/contact.php";
 include './components/publicheader.php' ; ?>
@@ -108,5 +108,24 @@ include './components/publicheader.php' ; ?>
     </div>
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Problog",
+    "url": "https://problog.lovenishlabs.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91 124353342",
+      "contactType": "Customer Service",
+      "areaServed": "IN",
+      "availableLanguage": ["English", "Hindi"]
+    }
+  }
+}
+</script>
 
 <?php include './components/footer.php' ?>
