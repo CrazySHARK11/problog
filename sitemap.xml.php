@@ -41,7 +41,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <?php 
   $sql = "SELECT id FROM posts";
   $stmt = $pdo->prepare($sql);
- 
+  $stmt->execute($params);
    while ($post = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
     <url>
       <loc><?php echo 'https://problog.lovenishlabs.com/post.php?slug=' . urlencode($post['slug']) ?></loc>
