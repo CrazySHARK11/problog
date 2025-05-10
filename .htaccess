@@ -12,6 +12,9 @@ RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
 
+# Custom 404 error page
+ErrorDocument 404 https://problog.lovenishlabs.com/404
+
 # --- Enable HSTS (force HTTPS in future visits) ---
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"

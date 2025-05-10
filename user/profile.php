@@ -118,6 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment_id']))
 
 <?php $basePath = '../';
 include '../components/header.php' ?>
+</head>
+<body>
 <?php include '../components/navbar.php' ?>
 
  
