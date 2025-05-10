@@ -121,7 +121,7 @@ include './components/publicheader.php' ; ?>
       <p style="color: #e1e1e1;" class="line-clamp m-0">
         <?php echo htmlspecialchars($top_post['description']) ?>
       </p>
-      <a class="m-0" href="./post?id=<?php echo htmlspecialchars($top_post['id']) ?>" style="margin-left: .5em; color: #a5d6a7;">
+      <a class="m-0" href="post?id=<?php echo htmlspecialchars($top_post['id']) ?>" style="margin-left: .5em; color: #a5d6a7;">
         <i class="bi bi-box-arrow-up-right "></i>
       </a>
     </div>

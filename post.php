@@ -99,7 +99,7 @@ $ogtitle =  $post['title'] . "- All Blogs" ;
 $ogdesc =  htmlspecialchars($post['description']) ;
 $ogimage = htmlspecialchars($post['main_image']);
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/post.php?id=" . $post_id;
+$ogurl = "https://problog.lovenishlabs.com/post?id=" . $post_id;
 include './components/publicheader.php' ; ?>
 
 

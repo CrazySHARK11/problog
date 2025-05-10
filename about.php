@@ -40,7 +40,7 @@ $ogtitle = "About Us - Author and Blog Purpose";
 $ogdesc = "Discover the author behind this blog and learn about the purpose and vision of our content. Join us on this journey of knowledge and inspiration.";
 $ogimage = htmlspecialchars($author['profile_picture']);
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/about.php";
+$ogurl = "https://problog.lovenishlabs.com/about";
 include './components/publicheader.php' ; ?>
 <?php include './components/navbar.php' ?>
   <div class="container" style="max-width: 1280px; margin-top: 2rem; background-image: url('./assets/img/New\ Project.png');">

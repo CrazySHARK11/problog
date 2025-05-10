@@ -74,7 +74,7 @@ $ogtitle = "Blogs - All Blogs";
 $ogdesc = "Discover the author behind this blog and learn about the purpose and vision of our content. Join us on this journey of knowledge and inspiration.";
 $ogimage = "public/logo.svg";
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/blogs.php";
+$ogurl = "https://problog.lovenishlabs.com/blogs";
 include './components/publicheader.php' ; ?>
 
 <?php include './components/navbar.php' ?>

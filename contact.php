@@ -43,7 +43,7 @@ $ogtitle = "Contact Us - ProBlog";
 $ogdesc = "Contact us for any queries or feedback. We value your input and are here to assist you.";
 $ogimage = "public/logo.svg";
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/contact.php";
+$ogurl = "https://problog.lovenishlabs.com/contact";
 include './components/publicheader.php' ; ?>
 
 

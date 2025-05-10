@@ -82,7 +82,7 @@ $ogtitle = "Register - All Blogs";
 $ogdesc = "Register now to unlock a world of knowledge and inspiration. Join our community and start your journey today!";
 $ogimage = "public/logo.svg";
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/register.php";
+$ogurl = "https://problog.lovenishlabs.com/register";
 include './components/publicheader.php' ; ?>
 
 

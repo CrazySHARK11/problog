@@ -52,7 +52,7 @@ $ogtitle = "Login - ProBlog";
 $ogdesc = "Login to your account to access exclusive content and features. Join our community of passionate bloggers and readers.";
 $ogimage = "public/logo.svg";
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/login.php";
+$ogurl = "https://problog.lovenishlabs.com/login";
 include './components/publicheader.php' ; ?>
 
 
