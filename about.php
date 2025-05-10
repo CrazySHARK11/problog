@@ -89,7 +89,7 @@ include './components/publicheader.php' ; ?>
   "mainEntity": {
     "@type": "Person",
     "name": "Lovenish",
-    "url": "https://problog.lovenishlabs.com/about.php",
+    "url": "https://problog.lovenishlabs.com/about",
     "description": "Founder of Lovenish Labs, author of tech and development blog articles.",
     "image": "https://problog.lovenishlabs.com/images/lovenish.jpg",
     "sameAs": [

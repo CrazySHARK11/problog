@@ -102,7 +102,7 @@ include './components/publicheader.php' ; ?>
             <!-- Sign up link -->
             <div class="text-center mt-3">
                 <span style="color: #2e384d;">Don't have an account?</span>
-                <a href="./register.php" style="color: #a5d6a7; text-decoration: none;">Sign up</a>
+                <a href="./register" style="color: #a5d6a7; text-decoration: none;">Sign up</a>
             </div>
         </div>
     </div>

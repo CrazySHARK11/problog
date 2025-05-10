@@ -219,7 +219,7 @@ include './components/publicheader.php' ; ?>
       </form>
 
     <?php else: ?>
-      <p class="mt-3" style="color: #7c7c7c;"><a class="text-decoration-none" style="color: #6fbc71;" href="./login.php">Log in</a> to post a comment.</p>
+      <p class="mt-3" style="color: #7c7c7c;"><a class="text-decoration-none" style="color: #6fbc71;" href="./login">Log in</a> to post a comment.</p>
     <?php endif; ?>
 
   </div>
@@ -256,7 +256,7 @@ include './components/publicheader.php' ; ?>
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://problog.lovenishlabs.com/post.php?id=<?php echo $post_id; ?>"
+    "@id": "https://problog.lovenishlabs.com/post?id=<?php echo $post_id; ?>"
   },
   "headline": "<?php echo htmlspecialchars($post['title']); ?>",
   "description": "<?php echo htmlspecialchars($post['description']); ?>",
@@ -264,7 +264,7 @@ include './components/publicheader.php' ; ?>
     "author": {
     "@type": "Person",
     "name": "<?php echo htmlspecialchars($post['author_name']) ?>",
-    "url": "https://problog.lovenishlabs.com/about.php"
+    "url": "https://problog.lovenishlabs.com/about"
   },
   "publisher": {
     "@type": "Organization",

@@ -12,6 +12,11 @@ RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
 
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
 # Custom 404 error page
 ErrorDocument 404 https://problog.lovenishlabs.com/404
 

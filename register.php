@@ -148,7 +148,7 @@ include './components/publicheader.php' ; ?>
             <!-- Sign up link -->
             <div class="text-center mt-3">
                 <span style="color: #2e384d;">Already have an account?</span>
-                <a href="./login.php" style="color: #a5d6a7; text-decoration: none;">Login</a>
+                <a href="./login" style="color: #a5d6a7; text-decoration: none;">Login</a>
             </div>
         </div>
     </div>

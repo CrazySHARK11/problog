@@ -121,7 +121,7 @@ include './components/publicheader.php' ; ?>
       <p style="color: #e1e1e1;" class="line-clamp m-0">
         <?php echo htmlspecialchars($top_post['description']) ?>
       </p>
-      <a class="m-0" href="./post.php?id=<?php echo htmlspecialchars($top_post['id']) ?>" style="margin-left: .5em; color: #a5d6a7;">
+      <a class="m-0" href="./post?id=<?php echo htmlspecialchars($top_post['id']) ?>" style="margin-left: .5em; color: #a5d6a7;">
         <i class="bi bi-box-arrow-up-right "></i>
       </a>
     </div>
@@ -134,7 +134,7 @@ include './components/publicheader.php' ; ?>
         <h1 style="color: #fff;" class="fs-3 line-clamp-two"><?php echo htmlspecialchars($post['title']) ?></h1>
         <p style="color: #e1e1e1;" class="d-flex align-items-end">
           <span class="line-clamp-two"> <?php echo htmlspecialchars($post['description']) ?></span>
-          <a href="post.php?id=<?php echo htmlspecialchars($post['id']) ?>" style="  color: #a5d6a7;">
+          <a href="post?id=<?php echo htmlspecialchars($post['id']) ?>" style="  color: #a5d6a7;">
             <i class="bi bi-box-arrow-up-right"></i>
           </a>
         </p>
@@ -175,7 +175,7 @@ include './components/publicheader.php' ; ?>
               </p>
             </div>
           </div>
-          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post.php?id=<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
+          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post?id=<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
         </div>
       </div>
     <?php endforeach; ?>
@@ -200,7 +200,7 @@ include './components/publicheader.php' ; ?>
         <?php foreach($popularPosts as $popularPost): ?>
           <div class="side-popular-card d-flex gap-3 mt-3">
             <img loading="lazy" src="./uploads/<?php echo htmlspecialchars($popularPost['main_image']) ?>" width="70" height="70" class="rounded object-fit-cover float-start" alt="" alt="">
-            <a href="post.php?id=<?php echo htmlspecialchars($popularPost['id']) ?>" class="fs-6 line-clamp-two text-decoration-none text-dark fw-medium" style="color: color-mix(in srgb, #2e384d 90%, #fff 50%);"><?php echo htmlspecialchars($popularPost['title']) ?></a>
+            <a href="post?id=<?php echo htmlspecialchars($popularPost['id']) ?>" class="fs-6 line-clamp-two text-decoration-none text-dark fw-medium" style="color: color-mix(in srgb, #2e384d 90%, #fff 50%);"><?php echo htmlspecialchars($popularPost['title']) ?></a>
           </div>  
         <?php endforeach; ?>
       </div>
@@ -249,7 +249,7 @@ include './components/publicheader.php' ; ?>
   "@context": "https://schema.org",
   "@type": "Website",
   "name": "Problog",
-  "url": "https://problog.lovenishlabs.com"
+  "url": "https://problog.lovenishlabs.com/"
 }
 </script>
 

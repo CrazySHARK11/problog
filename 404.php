@@ -22,7 +22,7 @@
                 <p  style="max-width: 500px; color: gray;" class="fw-normal lead">
                     The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
                 </p>
-                <a href="./index.php"class="btn btn-primary"
+                <a href="./"class="btn btn-primary"
                     style="background-color: #639b65; width: 200px; border: none; padding: 10px; font-weight: 500;">Go to Homepage</a>
             </div>
         </div>
