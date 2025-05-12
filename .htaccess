@@ -12,13 +12,13 @@ RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
 
+# Rewrite "post/12" to "post.php?id=12"
+RewriteRule ^post/([0-9]+)$ post.php?id=$1 [L,QSA]
+
 # Remove .php extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
-
-# Rewrite /post/any to post.php?id=any
-RewriteRule ^post/([0-9]+)/?$ post.php?id=$1 [L,QSA]
 
 # Custom 404 error page
 ErrorDocument 404 https://problog.lovenishlabs.com/404

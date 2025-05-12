@@ -43,7 +43,8 @@ if ($post_id) {
     $errors[] = 'Failed to retrieve post data: ' . $e->getMessage();
   }
 } else {
-  $errors[] = 'Post ID is missing.';
+  header("Location: 404", 404);
+  exit;
 }
 
 
@@ -89,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
 
 <?php
 $pagetitle = $post['title'];
-$basePath =  './';
+$basePath =  "../";
 include './components/header.php' ?>
 
 <?php 
@@ -105,10 +106,11 @@ include './components/publicheader.php' ; ?>
 
 <?php include './components/navbar.php' ?>
 <div class="container" style="max-width: 1280px; margin-top: 2rem; ">
+ 
 
   <!-- Blog Main Image -->
   <div style="margin-top: 3em;">
-    <img src="<?php echo './uploads/' . htmlspecialchars($post['main_image']); ?>" alt="Blog Main Image" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
+    <img src="<?php echo   '../uploads/' .htmlspecialchars($post['main_image']); ?>" alt="Blog Main Image" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
   </div>
 
   <div class="row gap-3" style="justify-content: center;">
@@ -140,7 +142,7 @@ include './components/publicheader.php' ; ?>
       <div class="sticky-md-top px-3" style="top: 20px; border-left: 1px solid #e1e1e1;">
         <h3 style="color: #2e384d;" class="fw-light mb-4">author</h3>
         <div class="d-flex align-items-center gap-3">
-          <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="70" height="70" class="object-fit-cover rounded-circle" alt="author's image">
+          <img loading="lazy" src="<?php echo "../uploads/" . htmlspecialchars($post['auth_prof_pic']) ?>" width="70" height="70" class="object-fit-cover rounded-circle" alt="author's image">
           <div class="auther-details d-flex flex-column">
             <p class="fs-4 m-0 fw-medium"><?php echo htmlspecialchars($post['author_name']); ?></p>
             <p class="fs-6 m-0" style="color: #7c7c7c;">
@@ -230,7 +232,7 @@ include './components/publicheader.php' ; ?>
       <div class="comment d-flex mb-4">
         <div class="d-flex gap-3">
           <img loading="lazy" width="50" height="50" class="object-fit-cover rounded-circle"
-            src="./uploads/<?php echo htmlspecialchars($comment['profile_picture']); ?>" alt="">
+            src="../uploads/<?php echo htmlspecialchars($comment['profile_picture']); ?>" alt="">
 
         </div>
 

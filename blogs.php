@@ -83,7 +83,7 @@ include './components/publicheader.php' ; ?>
 <div class="search-header mt-5 " style=" background-color: #fff;">
   <div class="container">
 
-    <form action="blogs.php" method="GET" class="d-flex align-items-center justify-content-start">
+    <form action="blogs" method="GET" class="d-flex align-items-center justify-content-start">
       <div class="input-group">
         <input type="search" name="search" placeholder="Search the blogs" class="form-control form-control-lg" style="max-width: 400px; box-shadow: none; border-radius: 0;">
         <button class="btn btn-primary px-4" type="submit" style="border-radius: 0; box-shadow: none;  border: 0; background-color: #639b65;" id="button-addon2"><i class="bi bi-search"></i></button>
@@ -137,7 +137,7 @@ include './components/publicheader.php' ; ?>
               </p>
             </div>
           </div>
-          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post?id=<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
+          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
         </div>
       </div>
     <?php endforeach; ?>
