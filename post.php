@@ -14,7 +14,6 @@ if(isset($_GET['id'])) {
      header("Location: /problog/post/" . $post['slug'], true, 301);
      exit;
     }
-
 }
 
   
@@ -36,7 +35,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
   try {
-    $sql = "SELECT  posts.id, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
+    $sql = "SELECT posts.id, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
                                 authors.name AS author_name,  
                                 authors.description AS auth_desc, 
                                 authors.titles AS author_title, 
@@ -53,25 +52,31 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute([':slug' => $post_slug]);
     $post = $stmt->fetch();
 
-    if ($post) {
-      $post_id = $post['id'];
+    $blogpost_id = $post['id'];
+
+    if (!$post) {
+       http_response_code(404);
+       header("Location: ../404");
+       exit;
     }
-    
+ 
   } catch (PDOException $e) {
     $errors[] = 'Failed to retrieve post data: ' . $e->getMessage();
   }
+  
  
 
 // ------------------ COMMENTS ---------------------
 
 $comments = [];
+
 try {
   $stmt = $pdo->prepare("SELECT c.comment_content, c.created_at, u.username, u.profile_picture 
                            FROM comments c
                            JOIN users u ON c.user_id = u.id
                            WHERE c.post_id = :post_id
                            ORDER BY c.created_at DESC");
-  $stmt->execute([':post_id' => $post_id]);
+  $stmt->execute([':post_id' => $blogpost_id]);
   $comments = $stmt->fetchAll();
 } catch (PDOException $e) {
   $errors[] = "Failed to fetch comments: " . $e->getMessage();
@@ -85,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
       $stmt = $pdo->prepare("INSERT INTO comments (post_id, user_id, comment_content) 
                                  VALUES (:post_id, :user_id, :comment_content)");
       $stmt->execute([
-        ':post_id' => $post_id,
+        ':post_id' => $blogpost_id,
         ':user_id' => $_SESSION['user_id'],
         ':comment_content' => $comment_content
       ]);
