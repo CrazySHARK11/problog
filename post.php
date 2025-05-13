@@ -3,6 +3,20 @@ session_start();
 require_once "./config/database.php";
 
 $post_slug = $_GET['slug'] ?? null;
+
+if(isset($_GET['id'])) {
+   $post_id = $_GET['id'];
+   $stmt = $pdo->prepare("SELECT slug FROM posts WHERE id = ?");
+   $stmt->execute([$post_id]);
+   $post = $stmt->fetch();
+   
+   if ($post) {
+     header("Location: /problog/post/" . $post['slug'], true, 301);
+     exit;
+    }
+
+}
+
   
 if (isset($_SESSION['user_id'])) {
 

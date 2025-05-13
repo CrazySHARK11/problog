@@ -12,6 +12,12 @@ RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
 
+# Custom 404 error page
+ErrorDocument 404 https://problog.lovenishlabs.com/404
+
+# Rewrite /post/23 to post.php?id=23
+RewriteRule ^post/([0-9]+)$ post.php?id=$1 [L,QSA]
+
 # Rewrite "post/12" to "post.php?id=12"
 RewriteRule ^post/([^/]+)/?$ post.php?slug=$1 [L,QSA]
 
@@ -19,13 +25,8 @@ RewriteRule ^post/([^/]+)/?$ post.php?slug=$1 [L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
-
-# Custom 404 error page
-ErrorDocument 404 https://problog.lovenishlabs.com/404
-
+ 
 # --- Enable HSTS (force HTTPS in future visits) ---
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
 </IfModule>
-
- 
