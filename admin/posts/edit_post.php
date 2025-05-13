@@ -97,6 +97,15 @@ if (isset($_GET['id'])) {
 include "../admincomponents/header.php"; ?>
 <?php include "../admincomponents/navbar.php"; ?>
 
+<style>
+    /* Target the actual editable area inside CKEditor */
+    .ck-editor__editable_inline {
+        min-height: 300px;
+        /* optional: control height */
+    }
+</style>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
 <section class="container">
 
     <div class="header d-flex align-items-center justify-content-between mb-5">
@@ -127,6 +136,10 @@ include "../admincomponents/header.php"; ?>
     <form class="d-flex flex-column gap-4" action="edit_post.php?id=<?php echo $post_id ?>" method="POST" enctype="multipart/form-data">
         <img class="object-fit-cover" width="100%" height="300px" src="<?php echo '../../uploads/' . htmlspecialchars($post['main_image']) ?>" alt="">
         <input value="<?php echo htmlspecialchars($post['title']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required>
+        <div>
+             <input value="<?php echo htmlspecialchars($post['slug']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required disabled>
+              <div class="form-text m-0">The slug is generated automatically and cannot be edited after publishing.</div>
+        </div>
         <input value="<?php echo htmlspecialchars($post['published_date']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="date" name="published_date" required>
         <select class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="category_id" required>
             <?php
@@ -139,10 +152,21 @@ include "../admincomponents/header.php"; ?>
         </select>
         <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="file" name="main_image" accept="image/*" >
         <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="description" placeholder="Short Description" required><?php echo htmlspecialchars($post['description']) ?></textarea>
-        <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="content" placeholder="Main Content" required><?php echo htmlspecialchars($post['content']) ?></textarea>
+        <textarea id="editor" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="content" placeholder="Main Content" required><?php echo htmlspecialchars($post['content']) ?></textarea>
         <button style="background-color: #2e384d; border: 0;" class="btn mt-4 px-3 py-2 rounded-0 btn-primary " type="submit">Create Post</button>
 
     </form>
 </section>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 <?php include "../admincomponents/footer.php"; ?>

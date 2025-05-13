@@ -2,8 +2,8 @@
 session_start();
 require_once "./config/database.php";
 
-$post_id = $_GET['id'] ?? null;
-
+$post_slug = $_GET['slug'] ?? null;
+  
 if (isset($_SESSION['user_id'])) {
 
   $user_id = $_SESSION['user_id'];
@@ -21,9 +21,8 @@ if (isset($_SESSION['user_id'])) {
   }
 }
 
-if ($post_id) {
   try {
-    $sql = "SELECT posts.title, posts.content, posts.description, posts.main_image, posts.published_date, categories.name AS category_name, 
+    $sql = "SELECT  posts.id, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
                                 authors.name AS author_name,  
                                 authors.description AS auth_desc, 
                                 authors.titles AS author_title, 
@@ -35,18 +34,19 @@ if ($post_id) {
                                 FROM posts 
                                 JOIN categories ON posts.category_id = categories.id
                                 JOIN authors ON posts.author_id = authors.id 
-                                WHERE posts.id = :id ";
+                                WHERE posts.slug = :slug ";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([':id' => $post_id]);
+    $stmt->execute([':slug' => $post_slug]);
     $post = $stmt->fetch();
+
+    if ($post) {
+      $post_id = $post['id'];
+    }
+    
   } catch (PDOException $e) {
     $errors[] = 'Failed to retrieve post data: ' . $e->getMessage();
   }
-} else {
-  header("Location: 404", 404);
-  exit;
-}
-
+ 
 
 // ------------------ COMMENTS ---------------------
 
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
         ':user_id' => $_SESSION['user_id'],
         ':comment_content' => $comment_content
       ]);
-      header("Location: post.php?id=" . $post_id);
+      header("Location: post/" . $post_slug);
       exit;
     } catch (PDOException $e) {
       $errors[] = "Failed to post comment: " . $e->getMessage();
@@ -100,7 +100,7 @@ $ogtitle =  $post['title'] . "- All Blogs" ;
 $ogdesc =  htmlspecialchars($post['description']) ;
 $ogimage = htmlspecialchars($post['main_image']);
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/post?id=" . $post_id;
+$ogurl = "https://problog.lovenishlabs.com/post/" . $post_slug;
 include './components/publicheader.php' ; ?>
 
 
@@ -174,7 +174,7 @@ include './components/publicheader.php' ; ?>
     <h4 style="font-size: 1.5rem; color: #2e384d; font-weight: 600;">About the Author</h4>
 
     <div class="d-flex align-items-center gap-3">
-      <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="65" height="65" class=" my-4 object-fit-cover rounded-circle" alt="author's image">
+      <img loading="lazy" src="<?php echo '../uploads/' . htmlspecialchars($post['auth_prof_pic']) ?>" width="65" height="65" class=" my-4 object-fit-cover rounded-circle" alt="author's image">
       <div class="auther-details d-flex flex-column">
         <p class="fs-4 m-0 fw-medium"><?php echo htmlspecialchars($post['author_name']); ?></p>
         <p class="fs-6 m-0" style="color: #7c7c7c;">
@@ -221,7 +221,7 @@ include './components/publicheader.php' ; ?>
       </form>
 
     <?php else: ?>
-      <p class="mt-3" style="color: #7c7c7c;"><a class="text-decoration-none" style="color: #6fbc71;" href="./login">Log in</a> to post a comment.</p>
+      <p class="mt-3" style="color: #7c7c7c;"><a class="text-decoration-none" style="color: #6fbc71;" href="../login">Log in</a> to post a comment.</p>
     <?php endif; ?>
 
   </div>
@@ -258,7 +258,7 @@ include './components/publicheader.php' ; ?>
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://problog.lovenishlabs.com/post?id=<?php echo $post_id; ?>"
+    "@id": "https://problog.lovenishlabs.com/post/<?php echo $post_slug; ?>"
   },
   "headline": "<?php echo htmlspecialchars($post['title']); ?>",
   "description": "<?php echo htmlspecialchars($post['description']); ?>",

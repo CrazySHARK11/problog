@@ -13,7 +13,7 @@ try{
 
 // Select the top post 
 try {
-  $stmt = $pdo->prepare('SELECT posts.title, posts.id, posts.main_image, posts.description, posts.published_date, categories.name AS category_name 
+  $stmt = $pdo->prepare('SELECT posts.title, posts.slug, posts.main_image, posts.description, posts.published_date, categories.name AS category_name 
           FROM posts 
           JOIN categories ON posts.category_id = categories.id 
           WHERE is_top_post = :top_post');
@@ -56,7 +56,7 @@ try {
 
 // Populating blog posts 
 try {
-  $sql = "SELECT posts.title, posts.id, posts.main_image, posts.description, posts.published_date, categories.name AS category_name, 
+  $sql = "SELECT posts.title, posts.id, posts.slug, posts.main_image, posts.description, posts.published_date, categories.name AS category_name, 
            authors.name AS author_name, 
            authors.titles AS author_title,
            authors.profile_picture AS auth_prof_pic
@@ -73,7 +73,7 @@ try {
 
 // Fetch the last two posts
 try {
-  $sql = "SELECT posts.title, posts.id, posts.main_image, posts.description, posts.published_date, categories.name AS category_name 
+  $sql = "SELECT posts.title, posts.slug, posts.main_image, posts.description, posts.published_date, categories.name AS category_name 
           FROM posts 
           JOIN categories ON posts.category_id = categories.id 
           ORDER BY posts.published_date DESC LIMIT 2";
@@ -84,7 +84,7 @@ try {
 }
 
 try{
-  $sql = "SELECT posts.title, posts.id, posts.main_image FROM posts WHERE is_popular = false LIMIT 3 ";
+  $sql = "SELECT posts.title, posts.slug, posts.main_image FROM posts WHERE is_popular = false LIMIT 3 ";
   $stmt= $pdo->query($sql);
   $popularPosts = $stmt->fetchAll();
 }catch(PDOException $e){
@@ -121,7 +121,7 @@ include './components/publicheader.php' ; ?>
       <p style="color: #e1e1e1;" class="line-clamp m-0">
         <?php echo htmlspecialchars($top_post['description']) ?>
       </p>
-      <a class="m-0" href="post/<?php echo htmlspecialchars($top_post['id']) ?>" style="margin-left: .5em; color: #a5d6a7;">
+      <a class="m-0" href="post/<?php echo htmlspecialchars($top_post['slug']) ?>" style="margin-left: .5em; color: #a5d6a7;">
         <i class="bi bi-box-arrow-up-right "></i>
       </a>
     </div>
@@ -134,7 +134,7 @@ include './components/publicheader.php' ; ?>
         <h1 style="color: #fff;" class="fs-3 line-clamp-two"><?php echo htmlspecialchars($post['title']) ?></h1>
         <p style="color: #e1e1e1;" class="d-flex align-items-end">
           <span class="line-clamp-two"> <?php echo htmlspecialchars($post['description']) ?></span>
-          <a href="post/<?php echo htmlspecialchars($post['id']) ?>" style="  color: #a5d6a7;">
+          <a href="post/<?php echo htmlspecialchars($post['slug']) ?>" style="  color: #a5d6a7;">
             <i class="bi bi-box-arrow-up-right"></i>
           </a>
         </p>
@@ -175,7 +175,7 @@ include './components/publicheader.php' ; ?>
               </p>
             </div>
           </div>
-          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
+          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['slug']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
         </div>
       </div>
     <?php endforeach; ?>
@@ -200,16 +200,13 @@ include './components/publicheader.php' ; ?>
         <?php foreach($popularPosts as $popularPost): ?>
           <div class="side-popular-card d-flex gap-3 mt-3">
             <img loading="lazy" src="./uploads/<?php echo htmlspecialchars($popularPost['main_image']) ?>" width="70" height="70" class="rounded object-fit-cover float-start" alt="" alt="">
-            <a href="post/<?php echo htmlspecialchars($popularPost['id']) ?>" class="fs-6 line-clamp-two text-decoration-none text-dark fw-medium" style="color: color-mix(in srgb, #2e384d 90%, #fff 50%);"><?php echo htmlspecialchars($popularPost['title']) ?></a>
+            <a href="post/<?php echo htmlspecialchars($popularPost['slug']) ?>" class="fs-6 line-clamp-two text-decoration-none text-dark fw-medium" style="color: color-mix(in srgb, #2e384d 90%, #fff 50%);"><?php echo htmlspecialchars($popularPost['title']) ?></a>
           </div>  
         <?php endforeach; ?>
       </div>
 </section>
 <!-- Blog feed -->
-
-<!-- Our Focus -->
-<!-- Our Focus -->
-
+ 
 <!-- Reader's Experience -->
 <section class="container " style="padding: 0; margin-top: 4em;  min-height: 40vh;">
   <h2>Reader's Experience</h2>

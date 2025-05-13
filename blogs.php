@@ -24,7 +24,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // Populating blog posts 
-$sql = "SELECT posts.title, posts.id, posts.main_image, posts.description, posts.published_date, categories.name AS category_name, 
+$sql = "SELECT posts.title, posts.slug, posts.main_image, posts.description, posts.published_date, categories.name AS category_name, 
           authors.name AS author_name, 
           authors.titles AS author_title,
           authors.profile_picture as auth_prof_pic
@@ -137,7 +137,7 @@ include './components/publicheader.php' ; ?>
               </p>
             </div>
           </div>
-          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['id']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
+          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['slug']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
         </div>
       </div>
     <?php endforeach; ?>

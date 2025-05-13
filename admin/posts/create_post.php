@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once '../../config/database.php';
+require_once './sluggenarator.php';
+
 $errors = [];
 
 if (!isset($_SESSION['admin_id'])) {
@@ -64,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO posts (title, category_id, author_id, published_date, main_image, description, content) 
-                VALUES (:title, :category_id, :author_id, :published_date, :main_image, :description, :content)";
+            $sql = "INSERT INTO posts (title, category_id, author_id, published_date, main_image, description, content, slug) 
+                VALUES (:title, :category_id, :author_id, :published_date, :main_image, :description, :content, :slug)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':title' => $title,
@@ -74,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':published_date' => $published_date,
                 ':main_image' => $uploaded_image,
                 ':description' => $description,
-                ':content' => $content
+                ':content' => $content,
+                ':slug' => generateSlug($title)
             ]);
             header("Location: list_posts.php");
             exit;
@@ -127,7 +130,10 @@ include "../admincomponents/header.php"; ?>
 
 
     <form action="create_post.php" method="POST" enctype="multipart/form-data" class="w-100 w-sm-75 d-flex flex-column gap-3 mx-auto">
-        <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required>
+        <div>
+                    <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required>
+                    <div class="form-text">The title will be used to automatically generate an uneditable URL slug, so be mindful when writing the title.</div>
+        </div>
         <select class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="category_id" required>
             <?php
             $stmt = $pdo->query("SELECT * FROM categories");
