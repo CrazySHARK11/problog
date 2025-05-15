@@ -117,7 +117,13 @@ include './components/publicheader.php' ; ?>
   <?php else: ?>
     <?php foreach ($posts as $post): ?>
       <div class="blogcard d-flex flex-lg-row flex-column gap-4 align-items-center ">
-        <img loading="lazy" src="<?php echo './uploads/' . htmlspecialchars($post['main_image']) ?>" width="270" height="280" class="rounded object-fit-cover float-start" alt="">
+        <img 
+        <?php if ($loopIndex = array_search($post, $posts)) { if ($loopIndex > 1) { echo 'loading="lazy"'; } } ?>
+        src="<?php echo './uploads/' . htmlspecialchars($post['main_image']) ?>" 
+        width="270" 
+        height="280" 
+        class="rounded object-fit-cover float-start" 
+        alt="">
         <div class="card-content d-flex flex-column gap-2 justify-content-center justify-content-lg-start align-items-center align-items-lg-start">
           <span class="badge d-inline" style="color: #2e384d; background-color: #ccfcce;"><?php echo htmlspecialchars($post['category_name']) ?></span>
           <h2 class="m-0 text-center line-clamp-two text-lg-start" style="color: #2e384d;"><?php echo htmlspecialchars($post['title']) ?></h2>
