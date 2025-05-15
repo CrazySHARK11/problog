@@ -45,8 +45,8 @@ if (isset($_GET['id'])) {
                 $uploadOk = 0;
             }
 
-            if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
-                $errors[] = "Sorry, only JPG, JPEG, and PNG files are allowed.";
+            if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'webp'])) {
+                $errors[] = "Sorry, only JPG, JPEG, WEBP and PNG files are allowed.";
                 $uploadOk = 0;
             }
 

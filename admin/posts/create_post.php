@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Allowed file types
-    $allowed_extensions = ['jpg', 'jpeg', 'png'];
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
     $file_extension = strtolower(pathinfo($main_image, PATHINFO_EXTENSION));
 
     if ($main_image) {
 
         if (!in_array($file_extension, $allowed_extensions)) {
-            $errors[] = "Only JPG, JPEG, and PNG files are allowed.";
+            $errors[] = "Only JPG, JPEG, WEBP and PNG files are allowed.";
         }
 
         if ($main_image_size > 2 * 1024 * 1024) {
