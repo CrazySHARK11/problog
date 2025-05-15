@@ -175,7 +175,7 @@ include './components/publicheader.php' ; ?>
               </p>
             </div>
           </div>
-          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['slug']) ?>">READ MORE <i class="bi bi-chevron-double-right"></i> </a>
+          <a class="fw-bold text-decoration-none" style="color: #639b65;" href="post/<?php echo htmlspecialchars($post['slug']) ?>">READ BLOG <i class="bi bi-chevron-double-right"></i> </a>
         </div>
       </div>
     <?php endforeach; ?>
