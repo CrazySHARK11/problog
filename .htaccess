@@ -1,5 +1,17 @@
 RewriteEngine On
 
+# --- Redirect www to non-www ---
+RewriteCond %{HTTP_HOST} ^www\.problog\.lovenishlabs\.com [NC]
+RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
+
+# --- Redirect HTTP to HTTPS ---
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://problog.lovenishlabs.com/$1 [L,R=301]
+
+# --- Optional: Add trailing slash for directories (not files) ---
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+[^/])$ https://problog.lovenishlabs.com/$1/ [R=301,L]
+
 # Rewrite "post/12" to "post.php?id=12"
 RewriteRule ^post/([^/]+)/?$ post.php?slug=$1 [L,QSA]
 
@@ -7,4 +19,11 @@ RewriteRule ^post/([^/]+)/?$ post.php?slug=$1 [L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Custom 404 error page
+ErrorDocument 404 https://problog.lovenishlabs.com/404
  
+# --- Enable HSTS (force HTTPS in future visits) ---
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+</IfModule>
