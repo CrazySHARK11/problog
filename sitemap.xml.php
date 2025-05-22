@@ -44,7 +44,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
   $stmt->execute($params);
    while ($post = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
     <url>
-      <loc><?php echo 'https://problog.lovenishlabs.com/post/' . $post['slug'] ?></loc>
+      <loc><?php echo 'https://problog.lovenishlabs.com/blog/' . $post['slug'] ?></loc>
       <lastmod><?php echo date('Y-m-d') ?></lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
