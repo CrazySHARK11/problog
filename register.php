@@ -102,7 +102,7 @@ include './components/publicheader.php' ; ?>
         <div style="border-radius: 8px;">
             <h2 class="text-center" style="color: #607f61; margin-bottom: 1em;">Register</h2>
 
-            <form action="register.php" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3 justify-content-center align-items-center">
+            <form action="register" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-3 justify-content-center align-items-center">
                 <!-- Username -->
                 <div style="width: 100%;">
                     <label class="mb-3" for="username" style="color: #2e384d; font-weight: 500;">Username</label>

@@ -3,7 +3,7 @@ session_start();
 require_once "./config/database.php";
 
 $post_slug = $_GET['slug'] ?? null;
- 
+
 if (isset($_SESSION['user_id'])) {
 
   $user_id = $_SESSION['user_id'];
@@ -21,8 +21,8 @@ if (isset($_SESSION['user_id'])) {
   }
 }
 
-  try {
-    $sql = "SELECT posts.id, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
+try {
+  $sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
                                 authors.name AS author_name,  
                                 authors.description AS auth_desc, 
                                 authors.titles AS author_title, 
@@ -35,23 +35,21 @@ if (isset($_SESSION['user_id'])) {
                                 JOIN categories ON posts.category_id = categories.id
                                 JOIN authors ON posts.author_id = authors.id 
                                 WHERE posts.slug = :slug ";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':slug' => $post_slug]);
-    $post = $stmt->fetch();
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute([':slug' => $post_slug]);
+  $post = $stmt->fetch();
 
-    $blogpost_id = $post['id'];
+  $blogpost_id = $post['id'];
+  $blogpost_slug = $post['slug'];
 
-    if (!$post) {
-       http_response_code(404);
-       header("Location: ../404");
-       exit;
-    }
- 
-  } catch (PDOException $e) {
-    $errors[] = 'Failed to retrieve post data: ' . $e->getMessage();
+  if (!$post) {
+    http_response_code(404);
+    header("Location: ../404");
+    exit;
   }
-  
- 
+} catch (PDOException $e) {
+  $errors[] = 'Failed to retrieve post data: ' . $e->getMessage();
+}
 
 // ------------------ COMMENTS ---------------------
 
@@ -81,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
         ':user_id' => $_SESSION['user_id'],
         ':comment_content' => $comment_content
       ]);
-      header("Location: post/" . $post_slug);
+
+      header("Location: ./" . $blogpost_slug);
       exit;
     } catch (PDOException $e) {
       $errors[] = "Failed to post comment: " . $e->getMessage();
@@ -99,24 +98,24 @@ $pagetitle = $post['title'];
 $basePath =  "../";
 include './components/header.php' ?>
 
-<?php 
-$metadescription = htmlspecialchars($post['description'])  ; 
+<?php
+$metadescription = htmlspecialchars($post['description']);
 $metaauthor = "Lovenish";
-$ogtitle =  $post['title'] . "- All Blogs" ;
-$ogdesc =  htmlspecialchars($post['description']) ;
+$ogtitle =  $post['title'] . "- All Blogs";
+$ogdesc =  htmlspecialchars($post['description']);
 $ogimage = htmlspecialchars($post['main_image']);
 $ogtype = "website";
-$ogurl = "https://problog.lovenishlabs.com/post/" . $post_slug;
-include './components/publicheader.php' ; ?>
+$ogurl = "https://problog.lovenishlabs.com/blog/" . $post_slug;
+include './components/publicheader.php'; ?>
 
 
 <?php include './components/navbar.php' ?>
 <div class="container" style="max-width: 1280px; margin-top: 2rem; ">
- 
+
 
   <!-- Blog Main Image -->
   <div style="margin-top: 3em;">
-    <img src="<?php echo   '../uploads/' .htmlspecialchars($post['main_image']); ?>" alt="Blog Main Image" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
+    <img src="<?php echo   '../uploads/' . htmlspecialchars($post['main_image']); ?>" alt="Blog Main Image" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
   </div>
 
   <div class="row gap-3" style="justify-content: center;">
@@ -213,7 +212,7 @@ include './components/publicheader.php' ; ?>
 
     <?php if (isset($_SESSION['user_id'])): ?>
 
-      <form style="margin-top: 1rem;" action="post.php?id=<?php echo $post_id; ?>" method="POST">
+      <form style="margin-top: 1rem;" action="./<?php echo $post["slug"] ?>" method="POST">
         <!-- Comment Field -->
         <div class="mb-3">
           <label for="comment" style="font-weight: 500; color: #2e384d;">Comment</label>
@@ -259,31 +258,31 @@ include './components/publicheader.php' ; ?>
 </div>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://problog.lovenishlabs.com/post/<?php echo $post_slug; ?>"
-  },
-  "headline": "<?php echo htmlspecialchars($post['title']); ?>",
-  "description": "<?php echo htmlspecialchars($post['description']); ?>",
-  "image": "https://problog.lovenishlabs.com/uploads/<?php echo htmlspecialchars($post['main_image']) ?>",  
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://problog.lovenishlabs.com/blog/<?php echo $post_slug; ?>"
+    },
+    "headline": "<?php echo htmlspecialchars($post['title']); ?>",
+    "description": "<?php echo htmlspecialchars($post['description']); ?>",
+    "image": "https://problog.lovenishlabs.com/uploads/<?php echo htmlspecialchars($post['main_image']) ?>",
     "author": {
-    "@type": "Person",
-    "name": "<?php echo htmlspecialchars($post['author_name']) ?>",
-    "url": "https://problog.lovenishlabs.com/about"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Lovenish Labs",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://problog.lovenishlabs.com/images/logo.png"
-    }
-  },
-   "datePublished": "<?php echo date(DATE_ATOM, strtotime($post['published_at'])) ?>"
-}
+      "@type": "Person",
+      "name": "<?php echo htmlspecialchars($post['author_name']) ?>",
+      "url": "https://problog.lovenishlabs.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Lovenish Labs",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://problog.lovenishlabs.com/images/logo.png"
+      }
+    },
+    "datePublished": "<?php echo date(DATE_ATOM, strtotime($post['published_at'])) ?>"
+  }
 </script>
 
 

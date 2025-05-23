@@ -21,7 +21,7 @@ RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 # Custom 404 error page
-ErrorDocument 404 https://problog.lovenishlabs.com/404
+ErrorDocument 404 https://problog.lovenishlabs.com/404.php
 
 # Match any URL that starts with /post/ followed by any non-empty slug
 RewriteRule ^post/.+ - [G,L]

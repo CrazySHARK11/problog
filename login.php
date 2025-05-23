@@ -77,7 +77,7 @@ include './components/publicheader.php' ; ?>
 
         <div style="border-radius: 8px;">
 
-            <form action="" method="post" class="d-flex flex-column gap-3 justify-content-center align-items-center">
+            <form action="login" method="post" class="d-flex flex-column gap-3 justify-content-center align-items-center">
                 <!-- Email input -->
                 <div style="width: 100%;" class="px-3 px-sm-0">
                     <label class="mb-3" for="email" style="color: #2e384d; font-weight: 500;">Email address</label>
