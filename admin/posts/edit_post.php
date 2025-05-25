@@ -24,6 +24,10 @@ if (isset($_GET['id'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = trim($_POST['title']);
         $category_id = trim($_POST['category_id']);
+        $meta_title = trim($_POST['meta_title']);
+        $meta_desc = trim($_POST['meta_desc']);
+        $img_alt = trim($_POST['main_img_alt']);
+
         $description = trim($_POST['description']);
         $content = trim($_POST['content']);
         $published_date = trim($_POST['published_date']);
@@ -32,10 +36,10 @@ if (isset($_GET['id'])) {
         $target_dir = "../../uploads/";
         $uploadOk = 1;
 
-        if(empty($title)){
+        if (empty($title)) {
             $errors[] = "Title is required";
         }
-        
+
         if ($main_image) {
             $imageFileType = strtolower(pathinfo($main_image, PATHINFO_EXTENSION));
             $target_file = $target_dir . uniqid('img_', true) . '.' . $imageFileType;
@@ -55,7 +59,7 @@ if (isset($_GET['id'])) {
                 if (file_exists($previous_image_path)) {
                     unlink($previous_image_path);
                 }
- 
+
                 if (move_uploaded_file($_FILES['main_image']['tmp_name'], $target_file)) {
                     $main_image = basename($target_file);
                 } else {
@@ -69,17 +73,20 @@ if (isset($_GET['id'])) {
 
         if (empty($errors)) {
             try {
-                $sql = "UPDATE posts SET title = :title, category_id = :category_id, published_date = :published_date, 
+                $sql = "UPDATE posts SET title = :title, meta_title = :meta_title, meta_description = :meta_description, img_alt = :main_img_alt , category_id = :category_id, published_date = :published_date, 
                            main_image = :main_image, description = :description, content = :content WHERE id = :id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
                     ':title' => $title,
+                    ':meta_title' => $meta_title,
+                    ':meta_description' => $meta_desc,
                     ':category_id' => $category_id,
                     ':published_date' => $published_date,
                     ':main_image' => $main_image,
                     ':description' => $description,
                     ':content' => $content,
-                    ':id' => $post_id
+                    ':id' => $post_id,
+                    ':main_img_alt' => $img_alt
                 ]);
                 header("Location: list_posts.php");
                 exit;
@@ -136,10 +143,27 @@ include "../admincomponents/header.php"; ?>
     <form class="d-flex flex-column gap-4" action="edit_post.php?id=<?php echo $post_id ?>" method="POST" enctype="multipart/form-data">
         <img class="object-fit-cover" width="100%" height="300px" src="<?php echo '../../uploads/' . htmlspecialchars($post['main_image']) ?>" alt="">
         <input value="<?php echo htmlspecialchars($post['title']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required>
+
         <div>
-             <input value="<?php echo htmlspecialchars($post['slug']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required disabled>
-              <div class="form-text m-0">The slug is generated automatically and cannot be edited after publishing.</div>
+            <input value="<?php echo htmlspecialchars($post['slug']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required disabled>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span>The URL slug <span style="color: blue;"> cannot be edited </span> after publishing for <span style="color: red;"> SEO purpose </span> </div>
         </div>
+
+        <div>
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="meta_title" placeholder="Title Tag" value="<?php echo htmlspecialchars($post['meta_title']) ?>" required>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span> Keep the Title tag under <span style="color: blue;">60</span> Characters for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
+        <div>
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="main_img_alt" value="<?php echo htmlspecialchars($post['img_alt']) ?>" placeholder="Main Image alt tag" required>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span> Keep the Image alt tag <span style="color: blue;">unique</span> for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
+        <div>
+            <textarea class="form-control subs form-control-lg" rows="6" style="box-shadow: none; border-radius: 0;" type="text" name="meta_desc" placeholder="Meta Description" required><?php echo htmlspecialchars($post['meta_description']) ?></textarea>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span>Keep the Meta description under <span style="color: blue;">160</span> Characters for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
         <input value="<?php echo htmlspecialchars($post['published_date']) ?>" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="date" name="published_date" required>
         <select class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="category_id" required>
             <?php
@@ -150,10 +174,10 @@ include "../admincomponents/header.php"; ?>
             }
             ?>
         </select>
-        <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="file" name="main_image" accept="image/*" >
+        <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="file" name="main_image" accept="image/*">
         <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="description" placeholder="Short Description" required><?php echo htmlspecialchars($post['description']) ?></textarea>
         <textarea id="editor" class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="content" placeholder="Main Content" required><?php echo htmlspecialchars($post['content']) ?></textarea>
-        <button style="background-color: #2e384d; border: 0;" class="btn mt-4 px-3 py-2 rounded-0 btn-primary " type="submit">Create Post</button>
+        <button style="background-color: #2e384d; border: 0;" class="btn mt-4 px-3 py-2 rounded-0 btn-primary " type="submit">Save Edit</button>
 
     </form>
 </section>

@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 try {
-  $sql = "SELECT posts.id, posts.slug, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
+  $sql = "SELECT posts.id, posts.slug, posts.img_alt, posts.meta_title, posts.meta_description, posts.title, posts.content, posts.description, posts.main_image,  posts.published_date, categories.name AS category_name, 
                                 authors.name AS author_name,  
                                 authors.description AS auth_desc, 
                                 authors.titles AS author_title, 
@@ -94,15 +94,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_comment'])) {
 
 
 <?php
-$pagetitle = $post['title'];
+$pagetitle = $post['meta_title'];
 $basePath =  "../";
 include './components/header.php' ?>
 
 <?php
-$metadescription = htmlspecialchars($post['description']);
-$metaauthor = "Lovenish";
-$ogtitle =  $post['title'] . "- All Blogs";
-$ogdesc =  htmlspecialchars($post['description']);
+ 
+$metadescription = htmlspecialchars($post['meta_description']);
+$metaauthor = htmlspecialchars($post['author_name']);  ;
+$ogtitle =  $post['meta_title'] . "- All Blogs";
+$ogdesc =  htmlspecialchars($post['meta_description']);
 $ogimage = htmlspecialchars($post['main_image']);
 $ogtype = "website";
 $ogurl = "https://problog.lovenishlabs.com/blog/" . $post_slug;
@@ -115,7 +116,7 @@ include './components/publicheader.php'; ?>
 
   <!-- Blog Main Image -->
   <div style="margin-top: 3em;">
-    <img src="<?php echo   '../uploads/' . htmlspecialchars($post['main_image']); ?>" alt="Blog Main Image" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
+    <img src="<?php echo '../uploads/' . htmlspecialchars($post['main_image']); ?>" alt="<?php echo htmlspecialchars($post['img_alt']) ?>" height="650" class="object-fit-cover" style="width: 100%; border-radius: 8px;">
   </div>
 
   <div class="row gap-3" style="justify-content: center;">

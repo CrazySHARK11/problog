@@ -1,5 +1,6 @@
   <link rel="canonical" href="https://problog.lovenishlabs.com<?php echo $_SERVER['REQUEST_URI']; ?>" />
   <meta name="description" content="<?php echo $metadescription; ?>" />
+  <meta name="author" content="<?php echo $metaauthor ?>" />
 
   <meta property="og:title" content="<?php echo $ogtitle ?>">
   <meta property="og:description" content="<?php echo $ogdesc ?>">

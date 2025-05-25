@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../config/database.php';
-require_once './sluggenarator.php';
+require_once '../posts/sluggenarator.php';
 
 $errors = [];
 
@@ -12,10 +12,15 @@ if (!isset($_SESSION['admin_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title']);
-    $category_id = trim($_POST['category_id']);
+    $posturl_slug = trim($_POST['url_slug']);
+    $meta_title = trim($_POST['meta_title']);
+    $meta_desc = trim($_POST['meta_desc']);
+    $main_img_alt = trim($_POST['main_img_alt']);
     $description = trim($_POST['description']);
+    $category_id = trim($_POST['category_id']);
     $content = trim($_POST['content']);
     $published_date = $_POST['published_date'];
+
     $main_image = $_FILES['main_image']['name'];
     $main_image_tmp = $_FILES['main_image']['tmp_name'];
     $main_image_size = $_FILES['main_image']['size'];
@@ -66,18 +71,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO posts (title, category_id, author_id, published_date, main_image, description, content, slug) 
-                VALUES (:title, :category_id, :author_id, :published_date, :main_image, :description, :content, :slug)";
+            $sql = "INSERT INTO posts (title, meta_title, meta_description, img_alt, category_id, author_id, published_date, main_image, description, content, slug) 
+                VALUES (:title, :meta_title , :meta_description, :img_alt, :category_id, :author_id, :published_date, :main_image, :description, :content, :slug)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':title' => $title,
+                ':meta_title' => $meta_title,
+                ':meta_description' => $meta_desc,
                 ':category_id' => $category_id,
                 ':author_id' =>    $_SESSION['admin_id'],
                 ':published_date' => $published_date,
                 ':main_image' => $uploaded_image,
                 ':description' => $description,
                 ':content' => $content,
-                ':slug' => generateSlug($title)
+                ':slug' =>   generateSlug($posturl_slug),
+                ':img_alt' => $main_img_alt
             ]);
             header("Location: list_posts.php");
             exit;
@@ -130,10 +138,28 @@ include "../admincomponents/header.php"; ?>
 
 
     <form action="create_post.php" method="POST" enctype="multipart/form-data" class="w-100 w-sm-75 d-flex flex-column gap-3 mx-auto">
+        <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title : h1" required>
+
         <div>
-                    <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="title" placeholder="Post Title" required>
-                    <div class="form-text">The title will be used to automatically generate an uneditable URL slug, so be mindful when writing the title.</div>
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="url_slug" placeholder="Post URL slug" required>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span> You won't be able to change the post URL slug later <span style="color: blue;"> Keep the URL slug small and Unique </span> for <span style="color: red;"> SEO purpose </span> </div>
         </div>
+
+        <div>
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="meta_title" placeholder="Title Tag" required>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span> Keep the Title tag under <span style="color: blue;">60</span> Characters for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
+        <div>
+            <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="text" name="main_img_alt" placeholder="Main Image alt tag" required>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span> Keep the Image alt tag <span style="color: blue;">unique</span> for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
+        <div>
+            <textarea class="form-control subs form-control-lg" rows="6" style="box-shadow: none; border-radius: 0;" type="text" name="meta_desc" placeholder="Meta Description" required></textarea>
+            <div class="form-text d-flex align-items-center gap-1"> <span class="badge" style="color: #2e384d; background-color:rgb(194, 255, 196);">SEO</span>Keep the Meta description under <span style="color: blue;">160</span> Characters for <span style="color: red;"> SEO purpose </span> </div>
+        </div>
+
         <select class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" name="category_id" required>
             <?php
             $stmt = $pdo->query("SELECT * FROM categories");
@@ -142,6 +168,7 @@ include "../admincomponents/header.php"; ?>
             }
             ?>
         </select>
+
         <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="date" name="published_date" required>
         <input class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0;" type="file" name="main_image" accept="image/*" required>
         <textarea class="form-control subs form-control-lg" style="box-shadow: none; border-radius: 0; min-height: 250px;" name="description" placeholder="Short Description" required></textarea>
