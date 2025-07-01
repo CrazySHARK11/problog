@@ -111,6 +111,25 @@ include './components/publicheader.php'; ?>
 
 
 <?php include './components/navbar.php' ?>
+
+<style>
+   h2,h3{
+    margin: .7em 0;
+  }
+  blockquote{
+    border-left: 4px solid #6fbc71;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    color:rgb(112, 135, 118);
+    font-style: italic;
+  }
+  ul{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+  }
+</style>
+
 <div class="container" style="max-width: 1280px; margin-top: 2rem; ">
 
 
