@@ -113,7 +113,7 @@ include './components/publicheader.php'; ?>
 <?php include './components/navbar.php' ?>
 
 <style>
-   h2,h3{
+   h2,h4,h3{
     margin: .7em 0;
   }
   blockquote{
